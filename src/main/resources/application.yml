@@ -1,0 +1,21 @@
+spring:
+  config:
+    import: classpath:file.yml
+
+  servlet:
+    multipart:
+      location: /Users/core/tmp
+      max-request-size: 50MB
+      max-file-size: 5000B
+
+#      https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.web.spring.servlet.multipart.enabled
+
+#      Threshold after which files are written to disk.
+#      file-size-threshold: 0
+
+#      Whether to resolve the multipart request lazily at the time of file or parameter access.
+#      resolve-lazily: false
+
+#      Whether to resolve the multipart request strictly complying with the Servlet specification,
+#      only to be used for "multipart/form-data" requests.
+#      strict-servlet-compliance:
