@@ -21,7 +21,7 @@ import java.util.UUID;
 
 
 @WebMvcTest
-class FileUploadApiTests {
+class MockMvcFileUploadApiTests {
 
     private static final String TEST_IMAGE_NAME = "image.jpg";
 
