@@ -13,7 +13,8 @@ import java.nio.file.Path;
 public record FileProperties(
         String baseDir
 ) {
-    public FileProperties {
+    public FileProperties(String baseDir) {
+        this.baseDir = baseDir;
         validate();
     }
 
@@ -22,6 +23,8 @@ public record FileProperties(
             throw new IllegalArgumentException("baseDir must not be empty");
         }
         createDirectoryIfNotExists();
+
+        log.debug("FileProperties has been successfully validated: {}", this);
     }
 
     private void createDirectoryIfNotExists() {
