@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockMultipartFile;
@@ -21,7 +20,7 @@ import java.io.InputStream;
 import java.util.UUID;
 
 
-@WebMvcTest(value = FileUploadApi.class)
+@WebMvcTest
 class FileUploadApiTests {
 
     private static final String TEST_IMAGE_NAME = "image.jpg";
@@ -65,11 +64,5 @@ class FileUploadApiTests {
         InputStream is = getClass().getClassLoader().getResourceAsStream(TEST_IMAGE_NAME);
         Assertions.assertThat(is).isNotNull();
         return new MockMultipartFile("file", "image.jpg", "image/jpeg", is);
-    }
-
-    @TestConfiguration
-    public static class TestConfig {
-        @Autowired
-        FileProperties fileProperties;
     }
 }

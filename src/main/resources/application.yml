@@ -5,7 +5,7 @@ spring:
   servlet:
     multipart:
       location: /Users/core/tmp
-      max-request-size: 50MB
+      max-request-size: 500KB
       max-file-size: 5000B
 
 #      https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#application-properties.web.spring.servlet.multipart.enabled
