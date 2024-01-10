@@ -54,8 +54,11 @@ class FileUploadApiTests {
     }
 
     private void assertMockBean(final MockMultipartFile file) throws IOException {
-        Mockito.when(fileProperties.baseDir()).thenReturn("/Users/core/upload");
+        Mockito.when(fileProperties.baseDir()).thenReturn("/uploads");
         Mockito.when(fileManager.upload(file)).thenReturn(UUID.randomUUID().toString());
+
+        Assertions.assertThat(fileProperties.baseDir()).isNotEmpty().isEqualTo("/uploads");
+        Assertions.assertThat(fileManager.upload(file)).isNotEmpty();
     }
 
     private MockMultipartFile getMockMultipartFile() throws IOException {
