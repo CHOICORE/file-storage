@@ -9,10 +9,10 @@
 
 ## 실패 케이스
 
-- `spring.servlet.multipart.*` 설정을 통해 업로드 파일의 최대 크기를 제한하고, 이를 초과하는 파일이 업로드 되지 않는지 확인
+- `spring.servlet.multipart.max-file-size` 설정을 통해 업로드 파일의 최대 크기를 제한하고, 이를 초과하는 파일이 업로드 되지 않는지 확인
     - `spring.servlet.multipart.max-file-size` : 단일 파일의 최대 크기
 
----
+## 알게된 점
 
 **MockMvc로 테스트를 진행할 경우 `spring.servlet.multipart.max-request-size`는 테스트에 영향을 주지 못한다.**
 
@@ -39,5 +39,4 @@ private void parseParts(boolean explicit) {
 
 `RestAssured` 또는 `RestTemplate`를 사용해서 실제 서버를 기동시키고 테스트를 진행해야 되는건가 잘 모르겠다.
 
-
-
+---
