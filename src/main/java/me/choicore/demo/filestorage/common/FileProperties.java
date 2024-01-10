@@ -18,7 +18,7 @@ public record FileProperties(
         validate();
     }
 
-    public void validate() {
+    private void validate() {
         if (!StringUtils.hasText(this.baseDir)) {
             throw new IllegalArgumentException("baseDir must not be empty");
         }
