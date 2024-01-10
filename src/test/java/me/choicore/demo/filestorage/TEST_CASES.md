@@ -14,7 +14,9 @@
 
 ---
 
-**MockMvc로 테스트를 진행할 경우 `spring.servlet.multipart.max-request-size`는 테스트에 영향을 주지 못한다.** (spring.servlet.multipart.* 하위 속성 값들은 `MultipartProperties`클래스에 정상적으로 바인딩 된다.)
+**MockMvc로 테스트를 진행할 경우 `spring.servlet.multipart.max-request-size`는 테스트에 영향을 주지 못한다.**
+
+(spring.servlet.multipart.* 하위 속성 값들은 `MultipartProperties`클래스에 정상적으로 바인딩 된다.)
 
 그 이유는 `MockMvc`는 `MockHttpServletRequest`인터페이스를 사용하기 때문에, `MultipartConfigElement`클래스의 설정이 적용되지 않는다.
 
