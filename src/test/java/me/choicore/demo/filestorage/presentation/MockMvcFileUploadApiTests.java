@@ -16,14 +16,14 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 
 @WebMvcTest
 class MockMvcFileUploadApiTests {
 
-    private static final String TEST_IMAGE_NAME = "image.jpg";
+    private static final String TEST_FILE_NAME = "file.txt";
 
     @MockBean
     private FileProperties fileProperties;
@@ -37,16 +37,20 @@ class MockMvcFileUploadApiTests {
     @Test
     @DisplayName("파일 업로드에 성공하면, 고유 식별자와 메타정보를 응답한다.")
     void t1() throws Exception {
-        MockMultipartFile file = getMockMultipartFile();
+        MockMultipartFile file = assertAndGetMockMultipartFile();
 
         assertMockBean(file);
 
-        mockMvc.perform(MockMvcRequestBuilders.multipart(HttpMethod.PUT, "/v1/files")
-                        .file(file))
+        mockMvc.perform(
+                        MockMvcRequestBuilders
+                                .multipart(HttpMethod.PUT, "/v1/files")
+                                .file(file)
+                                .contentType("multipart/form-data")
+                )
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk(),
                         MockMvcResultMatchers.jsonPath("$.sid").isNotEmpty(),
-                        MockMvcResultMatchers.jsonPath("$.filename").value(TEST_IMAGE_NAME),
+                        MockMvcResultMatchers.jsonPath("$.filename").value(TEST_FILE_NAME),
                         MockMvcResultMatchers.jsonPath("$.size").value(file.getSize())
                 )
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
@@ -60,9 +64,7 @@ class MockMvcFileUploadApiTests {
         Assertions.assertThat(fileManager.upload(file)).isNotEmpty();
     }
 
-    private MockMultipartFile getMockMultipartFile() throws IOException {
-        InputStream is = getClass().getClassLoader().getResourceAsStream(TEST_IMAGE_NAME);
-        Assertions.assertThat(is).isNotNull();
-        return new MockMultipartFile("file", "image.jpg", "image/jpeg", is);
+    private MockMultipartFile assertAndGetMockMultipartFile() {
+        return new MockMultipartFile("file", TEST_FILE_NAME, "text/plain", "plain text file".getBytes(StandardCharsets.UTF_8));
     }
 }
