@@ -22,6 +22,7 @@ public record FileProperties(
         if (!StringUtils.hasText(this.baseDir)) {
             throw new IllegalArgumentException("baseDir must not be empty");
         }
+
         createDirectoryIfNotExists();
 
         log.debug("FileProperties has been successfully validated: {}", this);
@@ -34,7 +35,6 @@ public record FileProperties(
                 Files.createDirectories(uploadDir);
                 log.info("Upload directory has been successfully created: {}", uploadDir.toAbsolutePath());
             } catch (IOException e) {
-                log.error("Creation of upload directory failed: {}", e.getMessage());
                 throw new FileCreationException(e);
             }
         }
